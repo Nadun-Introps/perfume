@@ -580,4 +580,19 @@ class ProductRepository extends Repository
 
         return $query->max('min_price') ?? 0;
     }
+
+    /**
+     * Get latest products
+     *
+     * @param int $limit
+     * @return \Illuminate\Support\Collection
+     */
+    public function getLatestProducts($limit = 8)
+    {
+        return $this->model
+            ->with(['images'])
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get();
+    }
 }
