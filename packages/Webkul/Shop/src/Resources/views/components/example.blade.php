@@ -28,7 +28,7 @@
 
 <!-- basic/traditional form  -->
 <x-shop::form action="">
-     
+
     <!-- Type E-mail -->
     <x-shop::form.control-group>
         <x-shop::form.control-group.label>
@@ -56,7 +56,7 @@
         <x-shop::form.control-group.control
             type="date"
             id="dob"
-            name="date_of_birth" 
+            name="date_of_birth"
             value=""
             label="Date of Birth"
             placeholder="Date of Birth"
@@ -305,7 +305,7 @@
 
 <!-- Page Layout -->
 <x-shop::layouts>
-   Page Content 
+   Page Content
 </x-shop::layouts>
 
 <!-- label class -->
