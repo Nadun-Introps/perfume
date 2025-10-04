@@ -130,9 +130,9 @@ return [
         'core' => [
             'channels' => [
                 'name'             => 'Default',
-                'meta-title'       => 'Demo store',
-                'meta-keywords'    => 'Demo store meta keyword',
-                'meta-description' => 'Demo store meta description',
+                'meta-title'       => 'Perfume',
+                'meta-keywords'    => 'Perfume meta keyword',
+                'meta-description' => 'Perfume meta description',
             ],
 
             'currencies' => [

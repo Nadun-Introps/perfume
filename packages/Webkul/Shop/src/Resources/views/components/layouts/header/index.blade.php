@@ -78,6 +78,75 @@
                     </div>
                 </div>
             </div>
+
+            <div class="flex min-h-[78px] w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[60px] max-1180:px-8">
+                <!-- Left Navigation Section -->
+                <div class="flex items-center gap-x-10 max-[1180px]:gap-x-5">
+                    <!-- Logo Shimmer -->
+                    <span
+                        class="shimmer block h-[29px] w-[131px] rounded"
+                        role="presentation"
+                    >
+                    </span>
+
+                    <!-- Categories Shimmer -->
+                    <div class="flex items-center gap-5">
+                        <span
+                            class="shimmer h-6 w-20 rounded"
+                            role="presentation"
+                        >
+                        </span>
+
+                        <span
+                            class="shimmer h-6 w-20 rounded"
+                            role="presentation"
+                        >
+                        </span>
+
+                        <span
+                            class="shimmer h-6 w-20 rounded"
+                            role="presentation"
+                        >
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right Navigation Section -->
+                <div class="flex items-center gap-x-9 max-[1100px]:gap-x-6 max-lg:gap-x-8">
+                    <!-- Search Bar Shimmer -->
+                    <div class="relative w-full max-w-[445px]">
+                        <span
+                            class="shimmer block h-[42px] w-[250px] rounded-lg px-11 py-3"
+                            role="presentation"
+                        >
+                        </span>
+                    </div>
+
+                    <!-- Right Navigation Icons Shimmer -->
+                    <div class="mt-1.5 flex gap-x-8 max-[1100px]:gap-x-6 max-lg:gap-x-8">
+                        <!-- Compare Icon Shimmer -->
+                        <span
+                            class="shimmer h-6 w-6 rounded"
+                            role="presentation"
+                        >
+                        </span>
+
+                        <!-- Cart Icon Shimmer -->
+                        <span
+                            class="shimmer h-6 w-6 rounded"
+                            role="presentation"
+                        >
+                        </span>
+
+                        <!-- Profile Icon Shimmer -->
+                        <span
+                            class="shimmer h-6 w-6 rounded"
+                            role="presentation"
+                        >
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Mobile Header Shimmer -->
