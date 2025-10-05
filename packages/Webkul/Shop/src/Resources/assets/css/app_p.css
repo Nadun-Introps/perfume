@@ -27798,6 +27798,7 @@ input[type="radio"].sr-only:checked ~ div#nav-cart span {
     height: 1.5rem;
     width: 1.5rem;
 }
+
 .store-footer {
     margin-top: 2rem;
     position: relative;
@@ -27808,6 +27809,8 @@ input[type="radio"].sr-only:checked ~ div#nav-cart span {
     color: #fff;
     color: rgba(255, 255, 255, var(--tw-text-opacity, 1));
 }
+
+
 @media (min-width: 640px) {
     .store-footer {
         margin-top: 5rem;
@@ -28151,6 +28154,7 @@ input[type="radio"].sr-only:checked ~ div#nav-cart span {
 .enhanced_rounded_contacts a {
     border-radius: 0.25rem;
 }
+
 .user-contacts .links-contact {
     align-items: center;
     display: flex;
