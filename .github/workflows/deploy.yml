@@ -8,130 +8,100 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      # 1) Checkout code
+      # 1️⃣ Checkout code
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 2) Create deployment package (exclude vendor, node_modules, .env, etc.)
+      # 2️⃣ Setup PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, bcmath, xml, curl, mysqli
+          coverage: none
+
+      # 3️⃣ Install Composer dependencies
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+
+      # 4️⃣ Install Node dependencies and build assets
+      - name: Install Node and Build Assets
+        run: |
+          npm install
+
+      # 5️⃣ Create Deployment Package
       - name: Create Deployment Package
         run: |
-          # create zip excluding items you don't want deployed
-          zip -r deploy-package.zip . -x ".git/*" ".github/*" "tests/*" "node_modules/*" "vendor/*" ".env" "deploy-package.zip"
+          zip -r deploy-package.zip . -x ".git/*" ".github/*" "tests/*" "node_modules/*" "vendor/*"
 
-      # 3) Copy package to server
+      # 6️⃣ Copy files to server
       - name: Copy Files to Server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
-          port: ${{ secrets.DEPLOY_PORT }}            # optional (set secret to 22 if default)
           source: "deploy-package.zip"
           target: "${{ secrets.DEPLOY_PATH }}"
 
-      # 4) SSH into server and run deploy steps
+      # 7️⃣ SSH into server and deploy
       - name: SSH and Deploy
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
-          port: ${{ secrets.DEPLOY_PORT }}
           script: |
-            set -e
+            cd ${{ secrets.DEPLOY_PATH }}
 
-            cd "${{ secrets.DEPLOY_PATH }}"
-
-            echo "Unzipping package..."
+            # Unzip package
             unzip -o deploy-package.zip -d .
-            rm -f deploy-package.zip
+            rm deploy-package.zip
 
-            echo "Setting base permissions and ownership..."
-            # Set reasonable base perms; adjust to your policies
+            # Install dependancies
+            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+
+            # Permissions for all files
             chmod -R 755 .
-            # ensure storage & cache are writable
-            chmod -R 775 storage bootstrap/cache || true
-            chown -R ${{ secrets.DEPLOY_USER }}:${{ secrets.DEPLOY_USER }} . || true
+            chmod -R 775 storage bootstrap/cache
+            chown -R ${{ secrets.DEPLOY_USER }}:${{ secrets.DEPLOY_USER }} .
 
-            echo "Clearing Laravel caches (always run immediately after extraction)..."
-            php artisan view:clear || true
-            php artisan cache:clear || true
-            php artisan config:clear || true
-
-            # First-deploy .env setup (only if .env does not exist)
             if [ ! -f .env ]; then
-              echo ".env not found — creating from .env.example"
-              if [ -f .env.example ]; then
+                # First deployment
                 cp .env.example .env
-              else
-                echo "Warning: .env.example not found. Creating minimal .env..."
-                cat > .env <<EOF
-                APP_NAME=Bagisto
-                APP_ENV=production
-                APP_KEY=
-                APP_DEBUG=false
-                APP_URL=${{ secrets.APP_URL }}
-                DB_CONNECTION=mysql
-                DB_HOST=${{ secrets.DB_HOST }}
-                DB_PORT=3306
-                DB_DATABASE=${{ secrets.DB_DATABASE }}
-                DB_USERNAME=${{ secrets.DB_USERNAME }}
-                DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-                EOF
-              fi
-
-              # Replace values (if placeholders exist)
-              sed -i "s|DB_HOST=.*|DB_HOST=${{ secrets.DB_HOST }}|" .env || true
-              sed -i "s|DB_DATABASE=.*|DB_DATABASE=${{ secrets.DB_DATABASE }}|" .env || true
-              sed -i "s|DB_USERNAME=.*|DB_USERNAME=${{ secrets.DB_USERNAME }}|" .env || true
-              sed -i "s|DB_PASSWORD=.*|DB_PASSWORD=${{ secrets.DB_PASSWORD }}|" .env || true
-              sed -i "s|APP_URL=.*|APP_URL=${{ secrets.APP_URL }}|" .env || true
-
-              echo "Generating APP KEY..."
-              php artisan key:generate --force || true
-
-              echo "Creating storage symlink..."
-              php artisan storage:link || true
+            
+                # Replace database and URL values
+                sed -i "s|DB_HOST=.*|DB_HOST=${{ secrets.DB_HOST }}|" .env
+                sed -i "s|DB_DATABASE=.*|DB_DATABASE=${{ secrets.DB_DATABASE }}|" .env
+                sed -i "s|DB_USERNAME=.*|DB_USERNAME=${{ secrets.DB_USERNAME }}|" .env
+                sed -i "s|DB_PASSWORD=.*|DB_PASSWORD=${{ secrets.DB_PASSWORD }}|" .env
+                sed -i "s|APP_URL=.*|APP_URL=${{ secrets.APP_URL }}|" .env
+            
+                # Generate APP_KEY
+                php artisan key:generate
+            
+                # Only storage link on first deployment
+                php artisan storage:link
             else
-              echo ".env exists — skipping creation."
+                # Subsequent deployments
+                php artisan migrate --force
+                # php artisan db:seed  # optional
             fi
 
-            # Ensure composer exists (simple fallback if not)
-            if command -v composer >/dev/null 2>&1; then
-              echo "Running composer install on server..."
-              composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-            elif [ -f composer.phar ]; then
-              echo "Running local composer.phar..."
-              php composer.phar install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-            else
-              echo "Composer not found. Attempting to install composer temporarily..."
-              php -r "copy('https://getcomposer.org/installer','composer-setup.php');" \
-                && php composer-setup.php --install-dir=/tmp --filename=composer || true
-              if [ -f /tmp/composer ]; then
-                php /tmp/composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-                rm -f /tmp/composer composer-setup.php
-              else
-                echo "Composer installation failed or no network. If vendor is required, ensure composer is present on the server."
-              fi
-            fi
+            # Clear previous cache
+            php artisan view:clear
+            php artisan cache:clear
+            php artisan config:clear
+            
+            # Laravel / Bagisto setup
+            php artisan config:cache
+            php artisan route:cache
 
-            # Run migrations (safe: --force for CI)
-            echo "Running migrations..."
-            php artisan migrate --force || true
-
-            # Rebuild caches
-            echo "Rebuilding caches..."
-            php artisan config:cache || true
-            php artisan route:cache || true
-            php artisan view:cache || true
-
-            # install node modules
+            # Build assets on server (optional)
             npm install
 
-            # Final permissions for writeable dirs
-            echo "Finalizing permissions..."
-            chmod -R 775 storage bootstrap/cache || true
-            chown -R ${{ secrets.DEPLOY_USER }}:${{ secrets.DEPLOY_USER }} storage bootstrap/cache || true
-
-            echo "Deployment finished."
+            # Final permissions
+            chmod -R 775 storage bootstrap/cache
+            chown -R ${{ secrets.DEPLOY_USER }}:${{ secrets.DEPLOY_USER }} storage bootstrap/cache
