@@ -4,6 +4,7 @@ namespace Webkul\Shop\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
 use Webkul\Category\Repositories\CategoryRepository;
+use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Requests\ContactRequest;
 use Webkul\Shop\Http\Resources\CategoryTreeResource;
 use Webkul\Shop\Mail\ContactUs;
@@ -21,7 +22,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(protected ThemeCustomizationRepository $themeCustomizationRepository, protected CategoryRepository $categoryRepository) {}
+    public function __construct(protected ThemeCustomizationRepository $themeCustomizationRepository, protected CategoryRepository $categoryRepository, protected ProductRepository $productRepository) {}
 
     /**
      * Loads the home page for the storefront.
@@ -39,10 +40,18 @@ class HomeController extends Controller
         ]);
 
         $categories = $this->categoryRepository->getVisibleCategoryTree(core()->getCurrentChannel()->root_category_id);
-
         $categories = CategoryTreeResource::collection($categories);
 
-        return view('shop::home.index', compact('customizations', 'categories'));
+        // Get latest 8 products for new collection
+        $latestProducts = $this->productRepository->getLatestProducts(8);
+
+        // Get best seller products (for now using latest products, you can update this later)
+        $bestSellerProducts = $this->productRepository->getLatestProducts(8);
+
+        // Get best summer collection (for now using latest products, you can update this later)
+        $summerProducts = $this->productRepository->getLatestProducts(4);
+
+        return view('shop::home.index', compact('customizations', 'categories', 'latestProducts', 'bestSellerProducts', 'summerProducts'));
     }
 
     /**

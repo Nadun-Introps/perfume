@@ -70,6 +70,42 @@ class ThemeCustomization extends TranslatableModel implements ThemeCustomization
      */
     public const SERVICES_CONTENT = 'services_content';
 
+
+    /**
+     * New Collection.
+     *
+     * @var string
+     */
+    public const NEW_COLLECTION = 'new_collection';
+
+    /**
+     * Best Seller.
+     *
+     * @var string
+     */
+    public const BEST_SELLER = 'best_seller';
+
+    /**
+     * Summer Collection
+     *
+     * @var string
+     */
+    public const SUMMER_COLLECTION = 'summer_collection';
+
+    /**
+     * Video Banner precision.
+     *
+     * @var string
+     */
+    public const VIDEO_BANNER = 'video_banner';
+
+    /**
+     * Text Banner precision.
+     *
+     * @var string
+     */
+    public const TEXT_BANNER = 'text_banner';
+
     /**
      * Cast options field to array.
      *

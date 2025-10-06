@@ -72,6 +72,15 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap"
         />
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+        <link rel="stylesheet" href="{{ asset('css/app_p.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/pingarlt.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/sallaicons.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/632105401.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+        
         @stack('styles')
 
         <style>

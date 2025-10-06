@@ -11,134 +11,178 @@
     template as much as possible.
 -->
 @php
-    $channel = core()->getCurrentChannel();
+  $channel = core()->getCurrentChannel();
 
-    $customization = $themeCustomizationRepository->findOneWhere([
-        'type'       => 'footer_links',
-        'status'     => 1,
-        'theme_code' => $channel->theme,
-        'channel_id' => $channel->id,
-    ]);
+  $customization = $themeCustomizationRepository->findOneWhere([
+    'type' => 'footer_links',
+    'status' => 1,
+    'theme_code' => $channel->theme,
+    'channel_id' => $channel->id,
+  ]);
 @endphp
 
-<footer class="mt-9 bg-lightOrange max-sm:mt-10">
-    <div class="flex justify-between gap-x-6 gap-y-8 p-[60px] max-1060:flex-col-reverse max-md:gap-5 max-md:p-8 max-sm:px-4 max-sm:py-5">
-        <!-- For Desktop View -->
-        <div class="flex flex-wrap items-start gap-24 max-1180:gap-6 max-1060:hidden">
-            @if ($customization?->options)
-                @foreach ($customization->options as $footerLinkSection)
-                    <ul class="grid gap-5 text-sm">
-                        @php
-                            usort($footerLinkSection, function ($a, $b) {
-                                return $a['sort_order'] - $b['sort_order'];
-                            });
-                        @endphp
+<footer class="store-footer basic-footer" style="background-color: #f2f2f2 !important; color: black !important;">
+  <div aria-label="footer" class="store-footer__inner">
+    <div class="container">
+      <div class="grid grid-cols-2 lg:grid-cols-6 lg:gap-6">
+        <div class="mb-2.5 col-span-2 ">
 
-                        @foreach ($footerLinkSection as $link)
-                            <li>
-                                <a href="{{ $link['url'] }}">
-                                    {{ $link['title'] }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endforeach
-            @endif
+          <a href="https://uae.matchperfumes.com/en/" class="footer-logo " aria-label="logo">
+            <!-- <img src="./Best Sellers - Match Perfumes UAE_files/5XQkVJR3f2Iu9N4DvNhWcGvRkrPqirua0NVxyT2B.png"
+              height="&quot;64&quot;" style=" height:64px;" alt="Perfume" class="img-fluid mx-auto lg:mx-[unset]"> -->
+              <h1 class="mb-2.5">Perfume</h1>
+          </a>
+          <div class="flex items-center justify-center md:justify-start rtl:lg:ml-2 ltr:lg:mr-2 lg:mb-0" style="padding-top: 12px;">
+            <p class="text-sm">VAT Account Number
+              :
+              104786666800003</p>
+          </div>
         </div>
 
-        <!-- For Mobile view -->
-        <x-shop::accordion
-            :is-active="false"
-            class="hidden !w-full rounded-xl !border-2 !border-[#e9decc] max-1060:block max-sm:rounded-lg"
-        >
-            <x-slot:header class="rounded-t-lg bg-[#F1EADF] font-medium max-md:p-2.5 max-sm:px-3 max-sm:py-2 max-sm:text-sm">
-                @lang('shop::app.components.layouts.footer.footer-content')
-            </x-slot>
 
-            <x-slot:content class="flex justify-between !bg-transparent !p-4">
-                @if ($customization?->options)
-                    @foreach ($customization->options as $footerLinkSection)
-                        <ul class="grid gap-5 text-sm">
-                            @php
-                                usort($footerLinkSection, function ($a, $b) {
-                                    return $a['sort_order'] - $b['sort_order'];
-                                });
-                            @endphp
-
-                            @foreach ($footerLinkSection as $link)
-                                <li>
-                                    <a
-                                        href="{{ $link['url'] }}"
-                                        class="text-sm font-medium max-sm:text-xs">
-                                        {{ $link['title'] }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endforeach
-                @endif
-            </x-slot>
-        </x-shop::accordion>
-
-        {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.before') !!}
-
-        <!-- News Letter subscription -->
-        @if (core()->getConfigData('customer.settings.newsletter.subscription'))
-            <div class="grid gap-2.5">
-                <p
-                    class="max-w-[288px] text-3xl italic leading-[45px] text-navyBlue max-md:text-2xl max-sm:text-lg"
-                    role="heading"
-                    aria-level="2"
-                >
-                    @lang('shop::app.components.layouts.footer.newsletter-text')
-                </p>
-
-                <p class="text-xs">
-                    @lang('shop::app.components.layouts.footer.subscribe-stay-touch')
-                </p>
-
-                <div>
-                    <x-shop::form
-                        :action="route('shop.subscription.store')"
-                        class="mt-2.5 rounded max-sm:mt-0"
-                    >
-                        <div class="relative w-full">
-                            <x-shop::form.control-group.control
-                                type="email"
-                                class="block w-[420px] max-w-full rounded-xl border-2 border-[#e9decc] bg-[#F1EADF] px-5 py-4 text-base max-1060:w-full max-md:p-3.5 max-sm:mb-0 max-sm:rounded-lg max-sm:border-2 max-sm:p-2 max-sm:text-sm"
-                                name="email"
-                                rules="required|email"
-                                label="Email"
-                                :aria-label="trans('shop::app.components.layouts.footer.email')"
-                                placeholder="email@example.com"
-                            />
-    
-                            <x-shop::form.control-group.error control-name="email" />
-    
-                            <button
-                                type="submit"
-                                class="absolute top-1.5 flex w-max items-center rounded-xl bg-white px-7 py-2.5 font-medium hover:bg-zinc-100 max-md:top-1 max-md:px-5 max-md:text-xs max-sm:mt-0 max-sm:rounded-lg max-sm:px-4 max-sm:py-2 ltr:right-2 rtl:left-2"
-                            >
-                                @lang('shop::app.components.layouts.footer.subscribe')
-                            </button>
-                        </div>
-                    </x-shop::form>
-                </div>
-            </div>
-        @endif
-
-        {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.after') !!}
+        <div class="mb-2.5 col-span-2">
+          <div class="">
+            <h3 class="footer-title ">Important Links</h3>
+            <ul class="footer-list store-links-items">
+              <li><a href="https://uae.matchperfumes.com/en/%D9%85%D9%86-%D9%86%D8%AD%D9%86/page-1405694476"
+                  aria-label="itme" class="text-xs lg:text-base ">About Us</a></li>
+              <li><a
+                  href="https://uae.matchperfumes.com/en/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9-%D9%88%D8%B3%D8%B1%D9%8A%D8%A9-%D8%A7%D9%84%D9%85%D8%B9%D9%84%D9%88%D9%85%D8%A7%D8%AA/page-1230610191"
+                  aria-label="itme" class="text-xs lg:text-base ">Privacy Policy and Confidentiality of
+                  Information</a></li>
+              <li><a
+                  href="https://uae.matchperfumes.com/en/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%A8%D8%AF%D8%A7%D9%84-%D8%A3%D9%88-%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%B1%D8%AC%D8%A7%D8%B9/page-1963187465"
+                  aria-label="itme" class="text-xs lg:text-base ">Exchange, Refund and Cancellation policy</a></li>
+              <li><a
+                  href="https://uae.matchperfumes.com/en/%D8%A5%D8%AA%D9%81%D8%A7%D9%82%D9%8A%D8%A9-%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AE%D8%AF%D8%A7%D9%85/page-280304395"
+                  aria-label="itme" class="text-xs lg:text-base ">Usage agreement</a></li>
+              <li><a
+                  href="https://uae.matchperfumes.com/en/%D9%85%D8%A7%D9%87%D9%8A-%D8%A7%D9%84%D8%B9%D8%B7%D9%88%D8%B1-%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%88%D8%AD%D8%A7%D8%A9/page-1653750292"
+                  aria-label="itme" class="text-xs lg:text-base ">What are inspired perfumes and niche perfumes?</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+       
+        <div class="mb-2.5 col-span-2">
+    <div class="user-contacts lg:col-span-1 rounded_contacts">
+        <h3 class="footer-title">Contact us</h3>
+        <a href="https://uae.matchperfumes.com/en/whatsapp/send" class="links-contact" aria-label="contact" style="padding-top: 6px; display: block;">
+            <i class="fa-brands fa-whatsapp text-white-500 text-xl" style="padding-right: 15px;"></i>
+            <span class="text-unicode unicode break-all">+966125785690</span>
+        </a>
+        <a href="tel:920032057" class="links-contact" aria-label="contact" style="padding-top: 6px; display: block;">
+            <i class="fa-solid fa-phone text-white-600 text-xl" style="padding-right: 15px;"></i>
+            <span class="text-unicode unicode break-all">920032057</span>
+        </a>
     </div>
-
-    <div class="flex justify-between bg-[#F1EADF] px-[60px] py-3.5 max-md:justify-center max-sm:px-5">
-        {!! view_render_event('bagisto.shop.layout.footer.footer_text.before') !!}
-
-        <p class="text-sm text-zinc-600 max-md:text-center">
-            @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
-        </p>
-
-        {!! view_render_event('bagisto.shop.layout.footer.footer_text.after') !!}
+</div>
+        
+      </div>
     </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container py-4">
+      <div
+        class="flex items-center justify-center lg:justify-between flex-wrap lg:flex-nowrap lg:flex-row flex-col-reverse">
+        <div class="text-sm py-2.5 footer-rights">
+          <p class="text-gray-400 mb-2.5 md:mb-0">Copyright | 2025
+            <a href="https://uae.matchperfumes.com/en" class="hover:text-primary" target="_blank"
+              rel="noreferrer">Perfumes</a>
+          </p>
+        </div>
+
+        <div>
+          <ul class="payment-methods">
+            <li class="item-method">
+              <img src="{{ asset('images/mada_mini.png') }}" alt="mada" width="50" height="30" class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/credit_card_mini.png') }}" alt="credit_card" width="50" height="30"
+                class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/bank_mini.png') }}" alt="bank" width="50" height="30" class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/apple_pay_mini.png') }}" alt="apple_pay" width="50" height="30"
+                class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/tamara_installment_mini.png') }}" alt="tamara_installment"
+                style="width:35px; height:30px;" class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/cod_mini.png') }}" alt="cod" width="50" height="30" class="payment-img">
+            </li>
+          </ul>
+
+        </div>
+        <div class="py-2.5 lg:py-0">
+          <ul class="flex -mx-1 rounded_contacts">
+            <li class="mx-1">
+              <a href="https://www.instagram.com/matchperfumes.sa" target="_blank" title="Instagram"
+                aria-label="Instagram" class="social-link">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+            <li class="mx-1">
+              <a href="https://x.com/matchperfumesa" target="_blank" title="X / Twitter" aria-label="X / Twitter"
+                class="social-link">
+                <i class="fab fa-x-twitter"></i>
+              </a>
+            </li>
+            <li class="mx-1">
+              <a href="https://www.snapchat.com/add/matchperfumes" target="_blank" title="Snapchat"
+                aria-label="Snapchat" class="social-link">
+                <i class="fab fa-snapchat"></i>
+              </a>
+            </li>
+            <li class="mx-1">
+              <a href="https://www.tiktok.com/@matchperfume.com" target="_blank" title="TikTok" aria-label="TikTok"
+                class="social-link">
+                <i class="fab fa-tiktok"></i>
+              </a>
+            </li>
+            <li class="mx-1">
+              <a href="https://www.youtube.com/@MatchPerfumes" target="_blank" title="YouTube" aria-label="YouTube"
+                class="social-link">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </li>
+            <li class="mx-1">
+              <a href="https://www.facebook.com/profile.php?id=61552675531226" target="_blank" title="Facebook"
+                aria-label="Facebook" class="social-link">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <span
+    class="hidden w-1/2 mt-4 md:mt-12 sm:w-auto bottom-2 rtl:pl-24 ltr:pr-24 text-storeBG pointer-events-none bg-storeBG from-storeBG h-16 w-16 aspect-[3/4] lg:!w-[60%] lg:!w-[40%] object-fill object-bottom object-left object-right object-none object-top opacity-40"></span>
 </footer>
 
 {!! view_render_event('bagisto.shop.layout.footer.after') !!}
+
+<!--apply footer background-color-->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const footer = document.querySelector('footer.store-footer.basic-footer');
+    if (footer) {
+        footer.style.backgroundColor = '#f2f2f2';
+        footer.style.color = 'black';
+        
+        const allChildren = footer.querySelectorAll('*');
+        allChildren.forEach(child => {
+            child.style.backgroundColor = '#f2f2f2';
+            child.style.color = 'black';
+        });
+    }
+});
+</script>
