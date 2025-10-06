@@ -1,0 +1,169 @@
+name: Deploy Perfume (Bagisto) to Virtualmin
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) Checkout code
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # 2) Setup PHP (for any runner-side php tasks, optional)
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, bcmath, xml, curl, mysqli
+          coverage: none
+
+      # 3) Setup Node (build assets on runner)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      # 4) Install Node deps and build assets (on runner)
+      - name: Install Node deps and build assets
+        run: |
+          npm ci --silent
+          # try common build commands (if one fails, try the next)
+          if npm run production --silent; then
+            echo "Built with npm run production"
+          elif npm run prod --silent; then
+            echo "Built with npm run prod"
+          elif npm run build --silent; then
+            echo "Built with npm run build"
+          else
+            echo "No standard build script succeeded — continuing (ensure your built assets are in repo or provide a build script)."
+          fi
+
+      # 5) (Optional) run composer on runner if you need artifacts — not required since we install on server.
+      - name: Install composer on runner (optional)
+        run: composer --version || (php -r "copy('https://getcomposer.org/installer','composer-setup.php');" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer && composer --version)
+        # This step ensures composer exists if you ever want to run runner-side composer commands.
+
+      # 6) Create deployment package (exclude vendor, node_modules, .env, etc.)
+      - name: Create Deployment Package
+        run: |
+          # create zip excluding items you don't want deployed
+          zip -r deploy-package.zip . -x ".git/*" ".github/*" "tests/*" "node_modules/*" "vendor/*" ".env" "deploy-package.zip"
+
+      # 7) Copy package to server
+      - name: Copy Files to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}            # optional (set secret to 22 if default)
+          source: "deploy-package.zip"
+          target: "${{ secrets.DEPLOY_PATH }}"
+
+      # 8) SSH into server and run deploy steps
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          script: |
+            set -e
+
+            cd "${{ secrets.DEPLOY_PATH }}"
+
+            echo "Unzipping package..."
+            unzip -o deploy-package.zip -d .
+            rm -f deploy-package.zip
+
+            echo "Setting base permissions and ownership..."
+            # Set reasonable base perms; adjust to your policies
+            chmod -R 755 .
+            # ensure storage & cache are writable
+            chmod -R 775 storage bootstrap/cache || true
+            chown -R ${{ secrets.DEPLOY_USER }}:${{ secrets.DEPLOY_USER }} . || true
+
+            echo "Clearing Laravel caches (always run immediately after extraction)..."
+            php artisan view:clear || true
+            php artisan cache:clear || true
+            php artisan config:clear || true
+
+            # First-deploy .env setup (only if .env does not exist)
+            if [ ! -f .env ]; then
+              echo ".env not found — creating from .env.example"
+              if [ -f .env.example ]; then
+                cp .env.example .env
+              else
+                echo "Warning: .env.example not found. Creating minimal .env..."
+                cat > .env <<EOF
+                APP_NAME=Bagisto
+                APP_ENV=production
+                APP_KEY=
+                APP_DEBUG=false
+                APP_URL=${{ secrets.APP_URL }}
+                DB_CONNECTION=mysql
+                DB_HOST=${{ secrets.DB_HOST }}
+                DB_PORT=3306
+                DB_DATABASE=${{ secrets.DB_DATABASE }}
+                DB_USERNAME=${{ secrets.DB_USERNAME }}
+                DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+                EOF
+              fi
+
+              # Replace values (if placeholders exist)
+              sed -i "s|DB_HOST=.*|DB_HOST=${{ secrets.DB_HOST }}|" .env || true
+              sed -i "s|DB_DATABASE=.*|DB_DATABASE=${{ secrets.DB_DATABASE }}|" .env || true
+              sed -i "s|DB_USERNAME=.*|DB_USERNAME=${{ secrets.DB_USERNAME }}|" .env || true
+              sed -i "s|DB_PASSWORD=.*|DB_PASSWORD=${{ secrets.DB_PASSWORD }}|" .env || true
+              sed -i "s|APP_URL=.*|APP_URL=${{ secrets.APP_URL }}|" .env || true
+
+              echo "Generating APP KEY..."
+              php artisan key:generate --force || true
+
+              echo "Creating storage symlink..."
+              php artisan storage:link || true
+            else
+              echo ".env exists — skipping creation."
+            fi
+
+            # Ensure composer exists (simple fallback if not)
+            if command -v composer >/dev/null 2>&1; then
+              echo "Running composer install on server..."
+              composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+            elif [ -f composer.phar ]; then
+              echo "Running local composer.phar..."
+              php composer.phar install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+            else
+              echo "Composer not found. Attempting to install composer temporarily..."
+              php -r "copy('https://getcomposer.org/installer','composer-setup.php');" \
+                && php composer-setup.php --install-dir=/tmp --filename=composer || true
+              if [ -f /tmp/composer ]; then
+                php /tmp/composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+                rm -f /tmp/composer composer-setup.php
+              else
+                echo "Composer installation failed or no network. If vendor is required, ensure composer is present on the server."
+              fi
+            fi
+
+            # Run migrations (safe: --force for CI)
+            echo "Running migrations..."
+            php artisan migrate --force || true
+
+            # Rebuild caches
+            echo "Rebuilding caches..."
+            php artisan config:cache || true
+            php artisan route:cache || true
+            php artisan view:cache || true
+
+            # Final permissions for writeable dirs
+            echo "Finalizing permissions..."
+            chmod -R 775 storage bootstrap/cache || true
+            chown -R ${{ secrets.DEPLOY_USER }}:${{ secrets.DEPLOY_USER }} storage bootstrap/cache || true
+
+            echo "Deployment finished."
