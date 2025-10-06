@@ -13,33 +13,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 4) Install Node deps and build assets (on runner)
-      - name: Install Node deps and build assets
-        run: |
-          npm ci --silent
-          # try common build commands (if one fails, try the next)
-          if npm run production --silent; then
-            echo "Built with npm run production"
-          elif npm run prod --silent; then
-            echo "Built with npm run prod"
-          elif npm run build --silent; then
-            echo "Built with npm run build"
-          else
-            echo "No standard build script succeeded — continuing (ensure your built assets are in repo or provide a build script)."
-          fi
-
-      # 5) (Optional) run composer on runner if you need artifacts — not required since we install on server.
-      - name: Install composer on runner (optional)
-        run: composer --version || (php -r "copy('https://getcomposer.org/installer','composer-setup.php');" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer && composer --version)
-        # This step ensures composer exists if you ever want to run runner-side composer commands.
-
-      # 6) Create deployment package (exclude vendor, node_modules, .env, etc.)
+      # 2) Create deployment package (exclude vendor, node_modules, .env, etc.)
       - name: Create Deployment Package
         run: |
           # create zip excluding items you don't want deployed
           zip -r deploy-package.zip . -x ".git/*" ".github/*" "tests/*" "node_modules/*" "vendor/*" ".env" "deploy-package.zip"
 
-      # 7) Copy package to server
+      # 3) Copy package to server
       - name: Copy Files to Server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -50,7 +30,7 @@ jobs:
           source: "deploy-package.zip"
           target: "${{ secrets.DEPLOY_PATH }}"
 
-      # 8) SSH into server and run deploy steps
+      # 4) SSH into server and run deploy steps
       - name: SSH and Deploy
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -145,6 +125,9 @@ jobs:
             php artisan config:cache || true
             php artisan route:cache || true
             php artisan view:cache || true
+
+            # install node modules
+            npm install
 
             # Final permissions for writeable dirs
             echo "Finalizing permissions..."
