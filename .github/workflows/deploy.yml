@@ -13,21 +13,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 2) Setup PHP (for any runner-side php tasks, optional)
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: mbstring, bcmath, xml, curl, mysqli
-          coverage: none
-
-      # 3) Setup Node (build assets on runner)
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: 'npm'
-
       # 4) Install Node deps and build assets (on runner)
       - name: Install Node deps and build assets
         run: |
