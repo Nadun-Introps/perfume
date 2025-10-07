@@ -1,4 +1,4 @@
-name: Deploy Perfume (Bagisto) to Virtualmin - test 3
+name: Deploy Perfume (Bagisto) to Virtualmin
 
 on:
   push:
