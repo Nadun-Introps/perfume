@@ -34,7 +34,7 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-topbar-template">
-        <div class="flex w-full items-center border border-b border-l-0 border-r-0 border-t-0 px-16">
+        <div class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16 custom-bg-black" style="height: 40px;">
             <!-- Left side: currency + locale -->
             <div class="flex items-center gap-6">
                 {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.before') !!}
@@ -97,8 +97,9 @@
             </div>
 
             <!-- Right side: optional content -->
-            <div class="ml-auto flex items-center">
+            <div class="flex items-center">
                 <!-- Any right-aligned content can go here -->
+                 <p>Test</p>
             </div>
         </div>
     </script>

@@ -1,0 +1,201 @@
+/* Add custom CSS styles below */ 
+/* Add custom CSS styles below */ 
+ul.hidden.lg\:flex.items-center.rtl\:pl-4.ltr\:pr-4.whitespace-nowrap.ltr\:mr-\[35px\].rtl\:ml-\[35px\] {
+    display: none;
+}
+
+element.style {
+    height: 68px;
+}
+
+.store-footer__inner, .store-footer__newsletter {
+
+    background-color: white;
+    color: black;
+}
+.store-footer__contacts-row{
+    background-color: white;
+    color: black;
+}
+footer.store-footer div {
+    background-color: white;
+    color: black;
+}
+
+.store-footer svg.absolute.top-0.w-full.h-6.-mt-5.sm\:-mt-10.sm\:h-16.store-footer__curve.z-\[0\] {
+    display: none;
+}
+
+
+.advanced-slider, .advanced-slider .swiper{
+height: auto !important;
+min-height: auto !important;
+}
+
+
+.product-card__enhanced-mini-cart button {
+    padding: 0;
+    border: 0;
+    background: #000000;
+    color: #414042;
+    color: #ffffff;
+    font-size: 14px;
+    display: block;
+    min-height: 22px;
+    padding-bottom: 3px;
+}
+
+.element.style {
+    background-color: #FF0000;
+}
+
+/*
+.product-card__enhanced-mini-cart button {
+   
+   
+    padding-bottom: 8px;
+     font-size: 18px
+}
+*/
+
+button.undefined.s-button-element.s-button-btn.s-button-outline.s-button-sm.s-button-wide.s-button-primary-outline.s-button-loader-center{
+ 
+    background: #000000;
+  
+    color: #ffffff;
+}
+i.text-\[16px\].sicon-add.ltr\:ml-auto.rtl\:mr-auto.enhanced-icon {
+    visibility: hidden;
+}
+i.text-\[16px\].sicon-shopping {
+    display: none;
+}
+
+.s-comments-page{
+display: none;
+}
+div[data-testid="bcio__popupRoot"] {
+    display: none!important;
+}
+div#bcio-popups {
+    display: none;
+}
+
+.promotion-title {
+    background-color: #ea2525!important;
+}
+.product-card__promotion {
+    background-color: #ea2525!important;
+}
+
+@media only screen and (max-width: 768px) {
+button.undefined.s-button-element.s-button-btn.s-button-outline.s-button-sm.s-button-wide.s-button-primary-outline.s-button-loader-center{
+font-size: 18px;
+}
+}
+
+.element.style {
+    background-color: #cd3333;
+}
+.s-block.banners-slider.banners-slider--4.slide{
+   display: none;
+}
+
+@media (max-width: 990px) {
+    .product-card__normal-cart {
+        display: inline;
+    }
+    div#bcio-whatsapp-widget .css-4uwyy8 .css-lrlg9a {
+    margin-bottom: 20%;
+}
+.s-block.banners-slider.banners-slider--3.slide{
+   display: none;
+}
+ 
+.s-block.banners-slider.banners-slider--4.slide {
+     display: inline;
+}
+
+}
+
+.product-card__promotion{
+left: initial;
+    right: 0;
+}
+
+.s-modal-sub-title{
+display: none;
+}
+.s-offer-wrapper .s-slider-block__title p{
+display: none;
+}
+.shipping-companies-step .col-md-12 .title.title--step.mb-20 .d-flex.gap-3 .d-flex.flex-column.gap-1 small {
+    display: none !important;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+ [dir=rtl] .dropdown:before {
+ 	content: "|";
+position: absolute;
+    right: 1px;
+ }
+ 
+  [dir=ltr] .dropdown:before {
+ 	content: "|";
+position: absolute;
+    left: 1px;
+ }
+  .dropdown-toggle {
+    padding: 0 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 9;
+    min-width: 160px;
+  }
+
+  .dropdown.open .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+   padding: 8px 11px;
+    text-decoration: none;
+    color: black !important;
+  }
+.dropdown-label{
+	   color: black !important;
+}
+  .dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+  .dropdown-flag{
+  width:20px
+  }
+[dir=rtl] .dropdown-flag{
+    margin-left: .5rem;
+}
+[dir=ltr] .dropdown-flag{
+    margin-right: .5rem;
+}
+div[data-id="reviews"] {
+    display: none!important;
+}
+
+.more-info-tabs__nav-link[data-id="reviews"] {
+display: none !important;
+}

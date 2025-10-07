@@ -21,42 +21,42 @@
 
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before') !!}
 
-        <div class="flex items-center">
+        <div class="flex items-center gap-x-6">
             <div
                 class="flex h-[77px] cursor-pointer items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
                 <span class="flex items-center gap-1 px-2 "> All Products
                 </span>
             </div>
-            <!-- <div
+            <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
                 <span><a href="" class="inline-block px-2 ">Gifts</a></span>
 
-            </div> -->
-            <!-- <div
+            </div>
+            <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
                 <span><a href="" class="inline-block px-2 ">Musk Collection</a></span>
 
-            </div> -->
-            <div
-                class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="" class="inline-block px-2 ">Unisex Perfumes</a></span>
             </div>
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="" class="inline-block px-2 ">Men's Perfumes</a></span>
+                <span><a href="" class="inline-block px-2 ">Unisex</a></span>
             </div>
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="" class="inline-block px-2 ">Women's Perfumes</a></span>
+                <span><a href="" class="inline-block px-2 ">Men's</a></span>
             </div>
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="" class="inline-block px-2 ">Niche Perfumes</a></span>
+                <span><a href="" class="inline-block px-2 ">Women's</a></span>
             </div>
-            <!-- <div
+            <div
+                class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
+                <span><a href="" class="inline-block px-2 ">Niche </a></span>
+            </div>
+            <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
                 <span><a href="" class="inline-block px-2 ">New Arrival</a></span>
-            </div> -->
+            </div>
         </div>
 
         <v-desktop-category>

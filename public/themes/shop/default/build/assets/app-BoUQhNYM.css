@@ -2212,7 +2212,7 @@ html {
 }
 .gap-x-10 {
     -moz-column-gap: 2.5rem;
-    column-gap: 2.5rem;
+    column-gap: 6.5rem;
 }
 .gap-x-11 {
     -moz-column-gap: 2.75rem;
