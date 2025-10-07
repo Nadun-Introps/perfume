@@ -107,6 +107,13 @@ class ThemeCustomization extends TranslatableModel implements ThemeCustomization
     public const TEXT_BANNER = 'text_banner';
 
     /**
+     * Lower Text Banner precision.
+     *
+     * @var string
+     */
+    public const LOWER_TEXT_BANNER = 'lower_text_banner';
+
+    /**
      * Cast options field to array.
      *
      * @var array

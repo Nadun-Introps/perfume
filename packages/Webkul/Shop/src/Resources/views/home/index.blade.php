@@ -75,6 +75,11 @@
                 <!-- Text Banner -->
                 @include('shop::home.partials.text-banner', ['data' => $data ?? []])
             @break
+
+            @case ($customization::LOWER_TEXT_BANNER)
+                <!-- Lower Text Banner -->
+                @include('shop::home.partials.lower-text-banner', ['data' => $data ?? []])
+            @break
         @endswitch
     @endforeach
 </x-shop::layouts>

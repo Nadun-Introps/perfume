@@ -123,6 +123,5 @@
             <p class="text-banner__paragraph">{{ $paragraph }}</p>
         @endif
 
-        <!-- Button section completely removed -->
     </div>
 </div>
