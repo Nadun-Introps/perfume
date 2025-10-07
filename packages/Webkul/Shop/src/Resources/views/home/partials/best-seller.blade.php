@@ -1,5 +1,9 @@
 @php
     $title = $data['title'] ?? 'Best Sellers';
+
+    if (!isset($latestProducts)) {
+        $latestProducts = app(\Webkul\Product\Repositories\ProductRepository::class)->getLatestProducts();
+    }
 @endphp
 
 <!-- You can create a separate CSS file or use the same one -->
@@ -42,7 +46,7 @@
 
                 <!-- Add to Cart Button -->
                 <button
-                    class="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition duration-300 mt-auto font-medium">
+                    class="bg-black text-white px-6 py-3 rounded-lg transition duration-300 mt-auto font-medium add-to-cart-btn">
                     Add to Cart
                 </button>
             </div>
@@ -51,8 +55,9 @@
 
     <!-- View All Button -->
     <div class="text-center mt-8">
-        <button class="view-all-btn">
+        <a href="{{ route('shop.search.index', ['new' => 1, 'sort' => 'created_at-desc']) }}"
+            class="view-all-btn inline-block">
             View all &gt;
-        </button>
+        </a>
     </div>
 </div>
