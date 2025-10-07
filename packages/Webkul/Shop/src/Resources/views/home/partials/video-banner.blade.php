@@ -10,6 +10,8 @@
     $muted = $data['muted'] ?? true;
     $loop = $data['loop'] ?? true;
     $overlay = $data['overlay'] ?? true;
+
+    $productsUrl = route('shop.search.index', ['new' => 1, 'sort' => 'created_at-desc']);
 @endphp
 
 @push('styles')
@@ -155,8 +157,8 @@
                 <p class="video-banner__subtitle">{{ $subtitle }}</p>
             @endif
 
-            @if ($buttonText && $buttonLink)
-                <a href="{{ $buttonLink }}" class="video-banner__button">
+            @if ($buttonText)
+                <a href="{{ $productsUrl }}" class="video-banner__button">
                     {{ $buttonText }}
                 </a>
             @endif
