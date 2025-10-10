@@ -26,12 +26,13 @@
                 class="max-h-[30px]"
                 aria-label="@lang('shop::app.components.layouts.header.mobile.bagisto')"
             >
-                <img
+                <!-- <img
                     src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                     alt="{{ config('app.name') }}"
                     width="131"
                     height="29"
-                >
+                > -->
+                <h1>Perfume</h1>
             </a>
 
             {!! view_render_event('bagisto.shop.components.layouts.header.mobile.logo.after') !!}
@@ -246,12 +247,13 @@
             <x-slot:header>
                 <div class="flex items-center justify-between">
                     <a href="{{ route('shop.home.index') }}">
-                        <img
+                        <!-- <img
                             src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                             alt="{{ config('app.name') }}"
                             width="131"
                             height="29"
-                        >
+                        > -->
+                        <h1>Perfume</h1>
                     </a>
                 </div>
             </x-slot>

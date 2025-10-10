@@ -846,6 +846,7 @@ html {
 }
 .relative {
     position: relative;
+    display: flex;
 }
 .sticky {
     position: sticky;

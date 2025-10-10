@@ -99,7 +99,7 @@
             <!-- Right side: optional content -->
             <div class="flex items-center">
                 <!-- Any right-aligned content can go here -->
-                 <p>Test</p>
+                 <p>perfume@example.com</p>
             </div>
         </div>
     </script>

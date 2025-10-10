@@ -32,7 +32,7 @@
               height="&quot;64&quot;" style=" height:64px;" alt="Perfume" class="img-fluid mx-auto lg:mx-[unset]"> -->
               <h1 class="mb-2.5">Perfume</h1>
           </a>
-          <div class="flex items-center justify-center md:justify-start rtl:lg:ml-2 ltr:lg:mr-2 lg:mb-0" style="padding-top: 12px; padding-bottom: 12px;">
+          <div class="flex items-left justify-left md:justify-start rtl:lg:ml-2 ltr:lg:mr-2 lg:mb-0" style="padding-top: 12px; padding-bottom: 15px;">
             <p class="text-sm">VAT Account Number
               :
               104786666800003</p>
