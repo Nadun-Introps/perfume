@@ -22,21 +22,27 @@
         @foreach ($summerProducts as $product)
             @php
                 $mainImage = $product->images->first();
+                // Generate product URL using the product's slug
+                $productUrl = route('shop.product_or_category.index', $product->url_key);
             @endphp
 
             <div class="product-card">
-                <!-- Product Image -->
+                <!-- Product Image with Link -->
                 <div class="product-image">
-                    @if ($mainImage)
-                        <img src="{{ asset('storage/' . $mainImage->path) }}" alt="{{ $product->name }}">
-                    @else
-                        <img src="https://via.placeholder.com/200x250.png?text=No+Image" alt="No Image">
-                    @endif
+                    <a href="{{ $productUrl }}" class="block">
+                        @if ($mainImage)
+                            <img src="{{ asset('storage/' . $mainImage->path) }}" alt="{{ $product->name }}">
+                        @else
+                            <img src="https://via.placeholder.com/200x250.png?text=No+Image" alt="No Image">
+                        @endif
+                    </a>
                 </div>
 
-                <!-- Product Name -->
+                <!-- Product Name with Link -->
                 <h3 class="font-semibold text-lg mb-2 line-clamp-2 min-h-[3.5rem] flex items-center justify-center">
-                    {{ $product->name }}
+                    <a href="{{ $productUrl }}" class="hover:text-blue-600 transition-colors">
+                        {{ $product->name }}
+                    </a>
                 </h3>
 
                 <!-- Product Price -->

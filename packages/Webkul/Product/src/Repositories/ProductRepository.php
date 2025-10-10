@@ -590,8 +590,13 @@ class ProductRepository extends Repository
     public function getLatestProducts($limit = 8)
     {
         return $this->model
+            ->join('product_flat', 'products.id', '=', 'product_flat.product_id')
+            ->where('product_flat.visible_individually', 1)
+            ->where('product_flat.channel', core()->getCurrentChannel()->code) // Correct channel method
+            ->where('product_flat.locale', app()->getLocale()) // Correct locale method
             ->with(['images'])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('product_flat.created_at', 'desc')
+            ->select('products.*')
             ->limit($limit)
             ->get();
     }
