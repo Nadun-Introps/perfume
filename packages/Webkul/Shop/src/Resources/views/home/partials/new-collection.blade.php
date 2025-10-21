@@ -1,10 +1,5 @@
 @php
     $title = $data['title'] ?? 'New Collection';
-
-    // Get the latest products if not passed from controller
-    if (!isset($latestProducts)) {
-        $latestProducts = app(\Webkul\Product\Repositories\ProductRepository::class)->getLatestProducts();
-    }
 @endphp
 
 <!-- Link to your CSS file -->
@@ -23,8 +18,16 @@
         @foreach ($latestProducts as $product)
             @php
                 $mainImage = $product->images->first();
-                // Generate product URL using the product's slug
                 $productUrl = route('shop.product_or_category.index', $product->url_key);
+
+                // Determine the display price based on product type
+                if ($product->type === 'configurable') {
+                    // For configurable products, show "As low as" with min price
+                    $displayPrice = 'As low as $' . number_format($product->price_index_min, 2);
+                } else {
+                    // For simple products, use the regular price
+                    $displayPrice = '$' . number_format($product->price, 2);
+                }
             @endphp
 
             <div class="product-card">
@@ -47,15 +50,15 @@
                 </h3>
 
                 <!-- Product Price -->
-                <p class="text-gray-600 mb-3 font-medium text-xl">
-                    ${{ number_format($product->price, 2) }}
+                <p class="price">
+                    {{ $displayPrice }}
                 </p>
 
-                <!-- Add to Cart Button -->
-                <button
-                    class="bg-black text-white px-6 py-3 rounded-lg transition duration-300 mt-auto font-medium add-to-cart-btn">
+                <!-- Add to Cart Button - Now redirects to product page -->
+                <a href="{{ $productUrl }}"
+                    class="bg-black text-white px-6 py-3 rounded-lg transition duration-300 mt-auto font-medium add-to-cart-btn block text-center">
                     Add to Cart
-                </button>
+                </a>
             </div>
         @endforeach
     </div>

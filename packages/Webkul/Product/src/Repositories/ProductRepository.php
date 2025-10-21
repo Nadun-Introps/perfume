@@ -589,14 +589,27 @@ class ProductRepository extends Repository
      */
     public function getLatestProducts($limit = 8)
     {
+        $customerGroup = $this->customerRepository->getCurrentGroup();
+
         return $this->model
             ->join('product_flat', 'products.id', '=', 'product_flat.product_id')
+            ->leftJoin('product_price_indices', function($join) use ($customerGroup) {
+                $join->on('products.id', '=', 'product_price_indices.product_id')
+                    ->where('product_price_indices.customer_group_id', $customerGroup->id);
+            })
             ->where('product_flat.visible_individually', 1)
-            ->where('product_flat.channel', core()->getCurrentChannel()->code) // Correct channel method
-            ->where('product_flat.locale', app()->getLocale()) // Correct locale method
+            ->where('product_flat.channel', core()->getCurrentChannel()->code)
+            ->where('product_flat.locale', app()->getLocale())
             ->with(['images'])
             ->orderBy('product_flat.created_at', 'desc')
-            ->select('products.*')
+            ->select([
+                'products.*',
+                'product_flat.*',
+                'product_price_indices.min_price as price_index_min',
+                'product_price_indices.max_price as price_index_max',
+                'product_price_indices.regular_min_price as regular_min_price',
+                'product_price_indices.regular_max_price as regular_max_price'
+            ])
             ->limit($limit)
             ->get();
     }

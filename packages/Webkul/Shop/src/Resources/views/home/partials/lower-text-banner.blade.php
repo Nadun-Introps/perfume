@@ -50,7 +50,7 @@
         .lower-text-banner__content {
             position: relative;
             z-index: 2;
-            width: 50%;
+            width: 40%;
             /* Always take right half */
             padding: 3rem 2rem;
             color: {{ $textColor }};
@@ -60,7 +60,7 @@
 
         .lower-text-banner__title {
             font-size: 2.5rem;
-            font-weight: 500;
+            font-weight: 300;
             margin-bottom: 0.5rem;
             line-height: 1;
             text-shadow: {{ $overlay ? '2px 2px 4px rgba(0, 0, 0, 0.5)' : 'none' }};
@@ -71,28 +71,26 @@
         .lower-text-banner__title span {
             font-size: 4.5rem;
             /* Larger font for 50% */
-            font-weight: 700;
+            font-weight: 300;
         }
 
         .lower-text-banner__subtitle {
             font-size: 1.5rem;
-            font-weight: 500;
+            font-weight: 400;
             margin-bottom: 0;
             line-height: 1.2;
             text-shadow: {{ $overlay ? '2px 2px 4px rgba(0, 0, 0, 0.5)' : 'none' }};
-            color: #FFD700;
-            /* Gold color for second line */
+            color: #ba7e23;
         }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .lower-text-banner {
                 min-height: 300px;
-                justify-content: center;
             }
 
             .lower-text-banner__content {
-                width: 90%;
+                width: 50%;
                 padding: 2rem 1rem;
                 text-align: center;
             }
