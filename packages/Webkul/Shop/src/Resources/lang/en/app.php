@@ -969,7 +969,7 @@ return [
                 'continue-to-checkout' => 'Continue to Checkout',
                 'empty-cart'           => 'Your cart is empty',
                 'excl-tax'             => 'Excl. Tax:',
-                'offer-on-orders'      => 'Get Up To 30% OFF on your 1st order',
+                //'offer-on-orders'      => 'Get Up To 30% OFF on your 1st order bokkaa',
                 'remove'               => 'Remove',
                 'see-details'          => 'See Details',
                 'shopping-cart'        => 'Shopping Cart',

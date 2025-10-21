@@ -48,7 +48,7 @@ class HomeController extends Controller
         // Get best seller products (for now using latest products, you can update this later)
         $bestSellerProducts = $this->productRepository->getLatestProducts(8);
 
-        // Get best summer collection (for now using latest products, you can update this later)
+        // Get summer collection (for now using latest products, you can update this later)
         $summerProducts = $this->productRepository->getLatestProducts(4);
 
         return view('shop::home.index', compact('customizations', 'categories', 'latestProducts', 'bestSellerProducts', 'summerProducts'));
