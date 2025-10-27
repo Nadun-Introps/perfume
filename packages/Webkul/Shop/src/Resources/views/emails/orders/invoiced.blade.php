@@ -84,7 +84,9 @@
                     {{ core()->getConfigData('sales.payment_methods.' . $invoice->order->payment->method . '.title') }}
                 </div>
 
-                @php $additionalDetails = \Webkul\Payment\Payment::getAdditionalDetails($invoice->order->payment->method); @endphp
+                @php
+                //$additionalDetails = \Webkul\Payment\Payment::getAdditionalDetails($invoice->order->payment->method);
+                @endphp
 
                 @if (! empty($additionalDetails))
                     <div style="font-size: 16px; color: #384860;">

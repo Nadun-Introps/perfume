@@ -32,7 +32,7 @@ class Stripe extends Payment
     }
 
     /**
-     * Get redirect URL
+     * Get redirect URL - This is important for Bagisto's flow
      *
      * @return string
      */
