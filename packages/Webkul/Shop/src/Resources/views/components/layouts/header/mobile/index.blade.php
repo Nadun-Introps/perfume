@@ -26,12 +26,13 @@
                 class="max-h-[30px]"
                 aria-label="@lang('shop::app.components.layouts.header.mobile.bagisto')"
             >
-                <img
+                <!-- <img
                     src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                     alt="{{ config('app.name') }}"
                     width="131"
                     height="29"
-                >
+                > -->
+                <h1>Perfume</h1>
             </a>
 
             {!! view_render_event('bagisto.shop.components.layouts.header.mobile.logo.after') !!}
@@ -212,7 +213,7 @@
         </label>
 
         <div class="relative w-full">
-            <div class="icon-search pointer-events-none absolute top-3 flex items-center text-2xl max-md:text-xl max-sm:top-2.5 ltr:left-3 rtl:right-3"></div>
+            <div class="pointer-events-none absolute top-3 flex items-center text-2xl max-md:text-xl max-sm:top-2.5 ltr:left-3 rtl:right-3"></div>
 
             <input
                 type="text"
@@ -246,12 +247,13 @@
             <x-slot:header>
                 <div class="flex items-center justify-between">
                     <a href="{{ route('shop.home.index') }}">
-                        <img
+                        <!-- <img
                             src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                             alt="{{ config('app.name') }}"
                             width="131"
                             height="29"
-                        >
+                        > -->
+                        <h1>Perfume</h1>
                     </a>
                 </div>
             </x-slot>

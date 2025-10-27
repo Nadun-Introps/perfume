@@ -22,9 +22,9 @@
 @endphp
 
 <footer class="store-footer basic-footer" style="background-color: #f2f2f2 !important; color: black !important;">
-  <div aria-label="footer" class="store-footer__inner">
+<div aria-label="footer" class="store-footer__inner">
     <div class="container">
-      <div class="grid grid-cols-2 lg:grid-cols-6 lg:gap-6">
+      <div class="grid grid-cols-2 lg:grid-cols-6 lg:gap-12"> <!-- Changed gap-6 to gap-12 -->
         <div class="mb-2.5 col-span-2 ">
 
           <a href="https://uae.matchperfumes.com/en/" class="footer-logo " aria-label="logo">
@@ -32,19 +32,44 @@
               height="&quot;64&quot;" style=" height:64px;" alt="Perfume" class="img-fluid mx-auto lg:mx-[unset]"> -->
               <h1 class="mb-2.5">Perfume</h1>
           </a>
-          <div class="flex items-center justify-center md:justify-start rtl:lg:ml-2 ltr:lg:mr-2 lg:mb-0" style="padding-top: 12px;">
+          <div class="flex items-left justify-left md:justify-start rtl:lg:ml-2 ltr:lg:mr-2 lg:mb-0" style="padding-top: 35px; padding-bottom: 15px;">
             <p class="text-sm">VAT Account Number
               :
               104786666800003</p>
           </div>
-        </div>
+                  <div>
+          <ul class="payment-methods">
+            <li class="item-method">
+              <img src="{{ asset('images/mada_mini.png') }}" alt="mada" width="50" height="30" class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/credit_card_mini.png') }}" alt="credit_card" width="50" height="30"
+                class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/bank_mini.png') }}" alt="bank" width="50" height="30" class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/apple_pay_mini.png') }}" alt="apple_pay" width="50" height="30"
+                class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/tamara_installment_mini.png') }}" alt="tamara_installment"
+                style="width:35px; height:30px;" class="payment-img">
+            </li>
+            <li class="item-method">
+              <img src="{{ asset('images/cod_mini.png') }}" alt="cod" width="50" height="30" class="payment-img">
+            </li>
+          </ul>
 
+        </div>
+        </div>
 
         <div class="mb-2.5 col-span-2">
           <div class="">
             <h3 class="footer-title ">Important Links</h3>
             <ul class="footer-list store-links-items">
-              <li><a href="https://uae.matchperfumes.com/en/%D9%85%D9%86-%D9%86%D8%AD%D9%86/page-1405694476"
+              <li><a href="/page/about-us"
                   aria-label="itme" class="text-xs lg:text-base ">About Us</a></li>
               <li><a
                   href="https://uae.matchperfumes.com/en/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9-%D9%88%D8%B3%D8%B1%D9%8A%D8%A9-%D8%A7%D9%84%D9%85%D8%B9%D9%84%D9%88%D9%85%D8%A7%D8%AA/page-1230610191"
@@ -76,11 +101,12 @@
             <span class="text-unicode unicode break-all">920032057</span>
         </a>
     </div>
-</div>
+        </div>
         
       </div>
     </div>
   </div>
+
   <div class="footer-bottom">
     <div class="container py-4">
       <div
@@ -92,32 +118,6 @@
           </p>
         </div>
 
-        <div>
-          <ul class="payment-methods">
-            <li class="item-method">
-              <img src="{{ asset('images/mada_mini.png') }}" alt="mada" width="50" height="30" class="payment-img">
-            </li>
-            <li class="item-method">
-              <img src="{{ asset('images/credit_card_mini.png') }}" alt="credit_card" width="50" height="30"
-                class="payment-img">
-            </li>
-            <li class="item-method">
-              <img src="{{ asset('images/bank_mini.png') }}" alt="bank" width="50" height="30" class="payment-img">
-            </li>
-            <li class="item-method">
-              <img src="{{ asset('images/apple_pay_mini.png') }}" alt="apple_pay" width="50" height="30"
-                class="payment-img">
-            </li>
-            <li class="item-method">
-              <img src="{{ asset('images/tamara_installment_mini.png') }}" alt="tamara_installment"
-                style="width:35px; height:30px;" class="payment-img">
-            </li>
-            <li class="item-method">
-              <img src="{{ asset('images/cod_mini.png') }}" alt="cod" width="50" height="30" class="payment-img">
-            </li>
-          </ul>
-
-        </div>
         <div class="py-2.5 lg:py-0">
           <ul class="flex -mx-1 rounded_contacts">
             <li class="mx-1">
