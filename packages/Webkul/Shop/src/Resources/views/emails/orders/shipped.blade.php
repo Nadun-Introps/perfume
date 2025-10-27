@@ -69,7 +69,9 @@
                     </div>
                 </div>
 
-                @php $additionalDetails = \Webkul\Payment\Payment::getAdditionalDetails($shipment->order->payment->method); @endphp
+                @php
+                //$additionalDetails = \Webkul\Payment\Payment::getAdditionalDetails($shipment->order->payment->method);
+                @endphp
 
                 @if (! empty($additionalDetails))
                     <div style="font-size: 16px; color: #384860;">

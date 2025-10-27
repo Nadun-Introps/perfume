@@ -258,6 +258,9 @@
                         });
 
                         if (response.data.success) {
+                            // Set order_id in session for success page
+                            sessionStorage.setItem('order_id', response.data.order_id);
+
                             // Redirect to success page
                             window.location.href = response.data.redirect_url;
                         } else {
@@ -267,7 +270,14 @@
                         }
                     } catch (error) {
                         console.error('Confirmation error:', error);
-                        this.showMessage('Payment confirmation failed.');
+
+                        // Show specific error message
+                        if (error.response && error.response.data && error.response.data.message) {
+                            this.showMessage(error.response.data.message);
+                        } else {
+                            this.showMessage('Payment confirmation failed. Please try again.');
+                        }
+
                         this.isProcessing = false;
                         this.$emit('processing', 'payment');
                     }

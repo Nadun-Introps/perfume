@@ -912,7 +912,7 @@ return [
 
     'checkout' => [
         'success' => [
-            'info'          => 'We will email you, your order details and tracking information',
+            'info'          => 'You can review your order details in your account.',
             'order-id-info' => 'Your order id is #:order_id',
             'thanks'        => 'Thank you for your order!',
             'title'         => 'Order successfully placed',

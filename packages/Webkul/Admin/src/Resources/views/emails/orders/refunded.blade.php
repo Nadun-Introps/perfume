@@ -11,8 +11,8 @@
         <p style="font-size: 16px;color: #5E5E5E;line-height: 24px;">
             @lang('admin::app.emails.orders.refunded.greeting', [
                 'invoice_id' => $refund->increment_id,
-                'order_id'   => '<a href="' . route('admin.sales.orders.view', $refund->order_id) . '" style="color: #2969FF;">#' . $refund->order->increment_id . '</a>',
-                'created_at' => core()->formatDate($refund->order->created_at, 'Y-m-d H:i:s')
+                'order_id' => '<a href="' . route('admin.sales.orders.view', $refund->order_id) . '" style="color: #2969FF;">#' . $refund->order->increment_id . '</a>',
+                'created_at' => core()->formatDate($refund->order->created_at, 'Y-m-d H:i:s'),
             ])
         </p>
     </div>
@@ -29,17 +29,17 @@
                 </div>
 
                 <div style="font-size: 16px;font-weight: 400;color: #384860;margin-bottom: 40px;">
-                    {{ $refund->order->shipping_address->company_name ?? '' }}<br/>
+                    {{ $refund->order->shipping_address->company_name ?? '' }}<br />
 
-                    {{ $refund->order->shipping_address->name }}<br/>
+                    {{ $refund->order->shipping_address->name }}<br />
 
-                    {{ $refund->order->shipping_address->address }}<br/>
+                    {{ $refund->order->shipping_address->address }}<br />
 
-                    {{ $refund->order->shipping_address->postcode . " " . $refund->order->shipping_address->city }}<br/>
+                    {{ $refund->order->shipping_address->postcode . ' ' . $refund->order->shipping_address->city }}<br />
 
-                    {{ $refund->order->shipping_address->state }}<br/>
+                    {{ $refund->order->shipping_address->state }}<br />
 
-                    ---<br/>
+                    ---<br />
 
                     {{ __('admin::app.emails.orders.contact') }} : {{ $refund->order->billing_address->phone }}
                 </div>
@@ -61,17 +61,17 @@
                 </div>
 
                 <div style="font-size: 16px;font-weight: 400;color: #384860;margin-bottom: 40px;">
-                    {{ $refund->order->billing_address->company_name ?? '' }}<br/>
+                    {{ $refund->order->billing_address->company_name ?? '' }}<br />
 
-                    {{ $refund->order->billing_address->name }}<br/>
+                    {{ $refund->order->billing_address->name }}<br />
 
-                    {{ $refund->order->billing_address->address }}<br/>
+                    {{ $refund->order->billing_address->address }}<br />
 
-                    {{ $refund->order->billing_address->postcode . " " . $refund->order->billing_address->city }}<br/>
+                    {{ $refund->order->billing_address->postcode . ' ' . $refund->order->billing_address->city }}<br />
 
-                    {{ $refund->order->billing_address->state }}<br/>
+                    {{ $refund->order->billing_address->state }}<br />
 
-                    ---<br/>
+                    ---<br />
 
                     {{ __('admin::app.emails.orders.contact') }} : {{ $refund->order->billing_address->phone }}
                 </div>
@@ -84,9 +84,11 @@
                     {{ core()->getConfigData('sales.payment_methods.' . $refund->order->payment->method . '.title') }}
                 </div>
 
-                @php $additionalDetails = \Webkul\Payment\Payment::getAdditionalDetails($refund->order->payment->method); @endphp
+                @php
+                    //$additionalDetails = \Webkul\Payment\Payment::getAdditionalDetails($refund->order->payment->method);
+                @endphp
 
-                @if (! empty($additionalDetails))
+                @if (!empty($additionalDetails))
                     <div style="font-size: 16px; color: #384860;">
                         <div>{{ $additionalDetails['title'] }}</div>
                         <div>{{ $additionalDetails['value'] }}</div>
@@ -116,19 +118,15 @@
                             @if (isset($item->additional['attributes']))
                                 <div>
                                     @foreach ($item->additional['attributes'] as $attribute)
-                                        @if (
-                                            ! isset($attribute['attribute_type'])
-                                            || $attribute['attribute_type'] !== 'file'
-                                        )
-                                            <b>{{ $attribute['attribute_name'] }} : </b>{{ $attribute['option_label'] }}<br>
+                                        @if (!isset($attribute['attribute_type']) || $attribute['attribute_type'] !== 'file')
+                                            <b>{{ $attribute['attribute_name'] }} :
+                                            </b>{{ $attribute['option_label'] }}<br>
                                         @else
                                             <b>{{ $attribute['attribute_name'] }} : </b>
 
-                                            <a
-                                                href="{{ Storage::url($attribute['option_label']) }}"
+                                            <a href="{{ Storage::url($attribute['option_label']) }}"
                                                 class="text-blue-600 hover:underline"
-                                                download="{{ File::basename($attribute['option_label']) }}"
-                                            >
+                                                download="{{ File::basename($attribute['option_label']) }}">
                                                 {{ File::basename($attribute['option_label']) }}
                                             </a>
 
@@ -166,7 +164,8 @@
         </table>
     </div>
 
-    <div style="display: grid;justify-content: end;font-size: 16px;color: #384860;line-height: 30px;padding-top: 20px;padding-bottom: 20px;">
+    <div
+        style="display: grid;justify-content: end;font-size: 16px;color: #384860;line-height: 30px;padding-top: 20px;padding-bottom: 20px;">
         @if (core()->getConfigData('sales.taxes.sales.display_subtotal') == 'including_tax')
             <div style="display: grid;gap: 20px;grid-template-columns: repeat(2, minmax(0, 1fr));">
                 <span>
