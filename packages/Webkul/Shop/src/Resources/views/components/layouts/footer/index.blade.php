@@ -22,9 +22,9 @@
 @endphp
 
 <footer class="store-footer basic-footer" style="background-color: #f2f2f2 !important; color: black !important;">
-  <div aria-label="footer" class="store-footer__inner">
+<div aria-label="footer" class="store-footer__inner">
     <div class="container">
-      <div class="grid grid-cols-2 lg:grid-cols-6 lg:gap-6">
+      <div class="grid grid-cols-2 lg:grid-cols-6 lg:gap-12"> <!-- Changed gap-6 to gap-12 -->
         <div class="mb-2.5 col-span-2 ">
 
           <a href="https://uae.matchperfumes.com/en/" class="footer-logo " aria-label="logo">
@@ -32,7 +32,7 @@
               height="&quot;64&quot;" style=" height:64px;" alt="Perfume" class="img-fluid mx-auto lg:mx-[unset]"> -->
               <h1 class="mb-2.5">Perfume</h1>
           </a>
-          <div class="flex items-left justify-left md:justify-start rtl:lg:ml-2 ltr:lg:mr-2 lg:mb-0" style="padding-top: 12px; padding-bottom: 15px;">
+          <div class="flex items-left justify-left md:justify-start rtl:lg:ml-2 ltr:lg:mr-2 lg:mb-0" style="padding-top: 35px; padding-bottom: 15px;">
             <p class="text-sm">VAT Account Number
               :
               104786666800003</p>
@@ -64,7 +64,6 @@
 
         </div>
         </div>
-
 
         <div class="mb-2.5 col-span-2">
           <div class="">
@@ -102,11 +101,12 @@
             <span class="text-unicode unicode break-all">920032057</span>
         </a>
     </div>
-</div>
+        </div>
         
       </div>
     </div>
   </div>
+
   <div class="footer-bottom">
     <div class="container py-4">
       <div
@@ -117,7 +117,6 @@
               rel="noreferrer">Perfumes</a>
           </p>
         </div>
-
 
         <div class="py-2.5 lg:py-0">
           <ul class="flex -mx-1 rounded_contacts">
