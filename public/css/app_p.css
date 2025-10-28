@@ -1022,7 +1022,6 @@ select {
 }
 .relative {
     position: relative;
-    display: flex;
 }
 .sticky {
     position: sticky;
@@ -47086,5 +47085,3 @@ button.swiper-pagination-bullet {
     display: flex !important;
     align-items: center !important;
 }
-
-

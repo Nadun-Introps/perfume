@@ -13,11 +13,9 @@
     <div class="flex items-center gap-x-10 max-[1180px]:gap-x-5">
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.before') !!}
 
-        <a href="{{ route('shop.home.index') }}"
-            aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.bagisto')">
-            <h1>Perfume</h1>
-            <!-- <img src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}" width="131"
-                height="29" alt="{{ config('app.name') }}"> -->
+        <a href="{{ route('shop.home.index') }}" aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.bagisto')">
+            <img src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}" width="131"
+                height="29" alt="{{ config('app.name') }}">
         </a>
 
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.after') !!}
@@ -25,9 +23,10 @@
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before') !!}
 
         <div class="flex items-center gap-x-6">
-            <div
-                class="flex h-[77px] cursor-pointer items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span class="flex items-center gap-1 px-2 "> <a href="/search?new=1&sort=created_at-desc" class="inline-block px-2 ">All Products</a>
+            <div class="flex h-[77px] cursor-pointer items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
+                <span class="flex items-center gap-1 px-2 ">
+                    <a href="{{ route('shop.search.index', ['sort' => 'created_at-desc']) }}"
+                        class="inline-block px-2 ">All Products</a>
                 </span>
             </div>
             <!-- <div
@@ -42,7 +41,8 @@
             </div> -->
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="/search?new=1&gender=22&sort=created_at-desc" class="inline-block px-2 ">Unisex</a></span>
+                <span><a href="/search?new=1&gender=22&sort=created_at-desc"
+                        class="inline-block px-2 ">Unisex</a></span>
             </div>
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
@@ -50,7 +50,8 @@
             </div>
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="/search?new=1&gender=21&sort=created_at-desc" class="inline-block px-2 ">Women's</a></span>
+                <span><a href="/search?new=1&gender=21&sort=created_at-desc"
+                        class="inline-block px-2 ">Women's</a></span>
             </div>
             <!-- <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
@@ -58,7 +59,8 @@
             </div> -->
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="" class="inline-block px-2 ">New Arrival</a></span>
+                <span><a href="{{ route('shop.search.index', ['new' => 1, 'sort' => 'created_at-desc']) }}"
+                        class="inline-block px-2 ">New Arrival</a></span>
             </div>
         </div>
 
@@ -87,8 +89,7 @@
                 position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
                 <x-slot:toggle>
                     <span class="icon-search inline-block cursor-pointer text-2xl" role="button"
-                        aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.profile')"
-                        tabindex="0"></span>
+                        aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.profile')" tabindex="0"></span>
                 </x-slot:toggle>
 
                 <!-- Dropdown -->
@@ -110,17 +111,15 @@
                                     style="border-color: #7d7d7d;"
                                     minlength="{{ core()->getConfigData('catalog.products.search.min_query_length') }}"
                                     maxlength="{{ core()->getConfigData('catalog.products.search.max_query_length') }}"
-                                    aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.search-text')"
-                                    placeholder="@lang('shop::app.components.layouts.header.desktop.bottom.search-text')"
-                                    aria-required="true" pattern="[^\\]+" required>
+                                    aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.search-text')" placeholder="@lang('shop::app.components.layouts.header.desktop.bottom.search-text')" aria-required="true"
+                                    pattern="[^\\]+" required>
 
-                                <button type="submit" class="hidden"
-                                    aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.submit')">
+                                <button type="submit" class="hidden" aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.submit')">
                                 </button>
 
                                 <!-- @if (core()->getConfigData('catalog.products.settings.image_search'))
-                    @include('shop::search.images.index')
-                @endif -->
+@include('shop::search.images.index')
+@endif -->
                             </form>
                         </div>
                     </div>
@@ -141,8 +140,7 @@
                 position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
                 <x-slot:toggle>
                     <span class="icon-users inline-block cursor-pointer text-2xl" role="button"
-                        aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.profile')"
-                        tabindex="0"></span>
+                        aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.profile')" tabindex="0"></span>
                 </x-slot:toggle>
 
                 <!-- Guest Dropdown -->
@@ -241,7 +239,7 @@
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.mini_cart.before') !!}
 
             <!-- Mini cart -->
-            @if(core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
+            @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
                 @include('shop::checkout.cart.mini-cart')
             @endif
 
@@ -468,7 +466,7 @@
                             return;
                         }
 
-                    } catch (e) { }
+                    } catch (e) {}
 
                     this.getCategories();
                 },
@@ -530,6 +528,5 @@
             },
         });
     </script>
-
 @endPushOnce
 {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.after') !!}
