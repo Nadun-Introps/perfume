@@ -23,7 +23,7 @@
 
     <div class="container mt-20 max-1180:px-5 max-md:mt-12">
         {!! view_render_event('bagisto.shop.customers.reset_password.logo.before') !!}
-        
+
         <!-- Company Logo -->
         <div class="flex items-center gap-x-14 max-[1180px]:gap-x-9">
             <a
@@ -31,13 +31,13 @@
                 class="m-[0_auto_20px_auto]"
                 aria-label="@lang('shop::app.customers.reset-password.bagisto')"
             >
-                <!-- <img
+                <img
                     src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                     alt="{{ config('app.name') }}"
                     width="131"
                     height="29"
-                > -->
-                <h1>Perfume</h1>
+                >
+                <!--<h1>Perfume</h1>-->
             </a>
         </div>
 
