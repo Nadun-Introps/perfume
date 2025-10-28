@@ -71,10 +71,11 @@ class Payment
      * @param  string  $code
      * @return array
      */
-    public static function getAdditionalDetails($code)
-    {
-        $paymentMethodClass = app(Config::get('payment_methods.'.$code.'.class'));
 
-        return $paymentMethodClass->getAdditionalDetails();
-    }
+    //public static function getAdditionalDetails($code)
+    //{
+        //$paymentMethodClass = app(Config::get('payment_methods.'.$code.'.class'));
+
+        //return $paymentMethodClass->getAdditionalDetails();
+    //}
 }

@@ -11,8 +11,8 @@
         <p style="font-size: 16px;color: #5E5E5E;line-height: 24px;">
             @lang('admin::app.emails.orders.inventory-source.greeting', [
                 'invoice_id' => $shipment->increment_id,
-                'order_id'   => '<a href="' . route('admin.sales.orders.view', $shipment->order_id) . '" style="color: #2969FF;">#' . $shipment->order->increment_id . '</a>',
-                'created_at' => core()->formatDate($shipment->order->created_at, 'Y-m-d H:i:s')
+                'order_id' => '<a href="' . route('admin.sales.orders.view', $shipment->order_id) . '" style="color: #2969FF;">#' . $shipment->order->increment_id . '</a>',
+                'created_at' => core()->formatDate($shipment->order->created_at, 'Y-m-d H:i:s'),
             ])
         </p>
     </div>
@@ -29,17 +29,17 @@
                 </div>
 
                 <div style="font-size: 16px;font-weight: 400;color: #384860;margin-bottom: 40px;">
-                    {{ $shipment->order->shipping_address->company_name ?? '' }}<br/>
+                    {{ $shipment->order->shipping_address->company_name ?? '' }}<br />
 
-                    {{ $shipment->order->shipping_address->name }}<br/>
+                    {{ $shipment->order->shipping_address->name }}<br />
 
-                    {{ $shipment->order->shipping_address->address }}<br/>
+                    {{ $shipment->order->shipping_address->address }}<br />
 
-                    {{ $shipment->order->shipping_address->postcode . " " . $shipment->order->shipping_address->city }}<br/>
+                    {{ $shipment->order->shipping_address->postcode . ' ' . $shipment->order->shipping_address->city }}<br />
 
-                    {{ $shipment->order->shipping_address->state }}<br/>
+                    {{ $shipment->order->shipping_address->state }}<br />
 
-                    ---<br/>
+                    ---<br />
 
                     @lang('admin::app.emails.orders.contact') : {{ $shipment->order->billing_address->phone }}
                 </div>
@@ -66,9 +66,11 @@
                     </div>
                 </div>
 
-                @php $additionalDetails = \Webkul\Payment\Payment::getAdditionalDetails($shipment->order->payment->method); @endphp
+                @php
+                    //$additionalDetails = \Webkul\Payment\Payment::getAdditionalDetails($shipment->order->payment->method);
+                @endphp
 
-                @if (! empty($additionalDetails))
+                @if (!empty($additionalDetails))
                     <div style="font-size: 16px; color: #384860;">
                         <div>
                             <span>{{ $additionalDetails->title }} : </span>
@@ -89,17 +91,17 @@
                 </div>
 
                 <div style="font-size: 16px;font-weight: 400;color: #384860;margin-bottom: 40px;">
-                    {{ $shipment->order->billing_address->company_name ?? '' }}<br/>
+                    {{ $shipment->order->billing_address->company_name ?? '' }}<br />
 
-                    {{ $shipment->order->billing_address->name }}<br/>
+                    {{ $shipment->order->billing_address->name }}<br />
 
-                    {{ $shipment->order->billing_address->address }}<br/>
+                    {{ $shipment->order->billing_address->address }}<br />
 
-                    {{ $shipment->order->billing_address->postcode . " " . $shipment->order->billing_address->city }}<br/>
+                    {{ $shipment->order->billing_address->postcode . ' ' . $shipment->order->billing_address->city }}<br />
 
-                    {{ $shipment->order->billing_address->state }}<br/>
+                    {{ $shipment->order->billing_address->state }}<br />
 
-                    ---<br/>
+                    ---<br />
 
                     @lang('admin::app.emails.orders.contact') : {{ $shipment->order->billing_address->phone }}
                 </div>
@@ -140,19 +142,15 @@
                             @if (isset($item->additional['attributes']))
                                 <div>
                                     @foreach ($item->additional['attributes'] as $attribute)
-                                        @if (
-                                            ! isset($attribute['attribute_type'])
-                                            || $attribute['attribute_type'] !== 'file'
-                                        )
-                                            <b>{{ $attribute['attribute_name'] }} : </b>{{ $attribute['option_label'] }}<br>
+                                        @if (!isset($attribute['attribute_type']) || $attribute['attribute_type'] !== 'file')
+                                            <b>{{ $attribute['attribute_name'] }} :
+                                            </b>{{ $attribute['option_label'] }}<br>
                                         @else
                                             <b>{{ $attribute['attribute_name'] }} : </b>
 
-                                            <a
-                                                href="{{ Storage::url($attribute['option_label']) }}"
+                                            <a href="{{ Storage::url($attribute['option_label']) }}"
                                                 class="text-blue-600 hover:underline"
-                                                download="{{ File::basename($attribute['option_label']) }}"
-                                            >
+                                                download="{{ File::basename($attribute['option_label']) }}">
                                                 {{ File::basename($attribute['option_label']) }}
                                             </a>
 

@@ -31,7 +31,7 @@
         type="text/x-template"
         id="v-dropdown-template"
     >
-        <div>
+        <div class="">
             <div
                 class="select-none"
                 ref="toggleBlock"

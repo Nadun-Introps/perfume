@@ -35,13 +35,14 @@
                                 style="height: 40px; width: 110px;"
                             />
                         @else
-                            <img
+                            <!-- <img
                                 src="{{ bagisto_asset('images/logo.svg', 'shop') }}"
                                 alt="{{ config('app.name') }}"
                                 width="131"
                                 height="29"
                                 style="width: 156px;height: 40px;"
-                            />
+                            /> -->
+                            <h1>Perfume</h1>
                         @endif
                     </a>
                 </div>
