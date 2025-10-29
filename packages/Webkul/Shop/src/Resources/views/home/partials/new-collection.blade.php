@@ -1,5 +1,5 @@
 @php
-    $title = $data['title'] ?? 'New Collection';
+    $title = $data['title'] ?? 'New Arrivals';
 @endphp
 
 <!-- Link to your CSS file -->

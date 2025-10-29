@@ -35,6 +35,8 @@
     flex-direction: column;
     height: 100%;
     background: white;
+    transition: border-color 0.3s ease; /* Added for smooth border transition */
+    border: 1px solid transparent; /* Added base transparent border */
 }
 
 /* Product Image Container */
@@ -64,6 +66,31 @@
     height: auto;
     object-fit: contain;
     display: block;
+}
+
+/* Hover effect: Light border around product card when hovering over product image */
+.new-collection .product-image:hover ~ *,
+.new-collection .product-image:hover ~ .add-to-cart-btn,
+.new-collection .product-image:hover ~ h3,
+.new-collection .product-image:hover ~ .price {
+    /* This ensures other elements don't interfere with the hover */
+}
+
+/* Main hover effect - applies border to entire product card */
+.new-collection .product-image:hover ~ *,
+.new-collection .product-card:hover {
+    border-color: #d1d5db; /* Light gray border */
+}
+
+/* Alternative approach - more reliable */
+.new-collection .product-image:hover ~ *,
+.new-collection .product-card:has(.product-image:hover) {
+    border-color: #d1d5db; /* Light gray border */
+}
+
+/* Fallback for browsers that don't support :has() */
+.new-collection .product-card:hover {
+    border-color: #d1d5db;
 }
 
 /* Title with partial underline - Centered */
