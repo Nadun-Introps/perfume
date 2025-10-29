@@ -116,7 +116,7 @@
         <div class="mp-container">
             <div class="mp-footer__bottom-content">
                 <div class="mp-footer__copyright">
-                    <p>Developed by | 2025
+                    <p>Copyright | 2025
                         <a href="https://introps.com/" class="mp-footer__copyright-link" target="_blank"
                             rel="noreferrer">Introps IT</a>
                     </p>
