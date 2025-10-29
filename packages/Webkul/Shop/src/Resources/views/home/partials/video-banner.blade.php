@@ -156,12 +156,13 @@
             @if ($subtitle)
                 <p class="video-banner__subtitle">{{ $subtitle }}</p>
             @endif
-
+            {{--
             @if ($buttonText)
                 <a href="{{ $productsUrl }}" class="video-banner__button">
                     {{ $buttonText }}
                 </a>
             @endif
+            --}}
         </div>
     </div>
 
