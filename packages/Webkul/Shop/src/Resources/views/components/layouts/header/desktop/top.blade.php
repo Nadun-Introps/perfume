@@ -34,7 +34,7 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-topbar-template">
-            <div class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16 custom-bg-black" style="height: 40px;">
+            <div class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16 custom-bg-black" style="height: 25px;">
                 <!-- Left side: currency + locale -->
                 <div class="flex items-center gap-6">
                     {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.before') !!}
@@ -118,15 +118,15 @@
                     </div>
                 </script>
 
-                <script type="text/x-template" id="v-locale-switcher-template">
+    <script type="text/x-template" id="v-locale-switcher-template">
                     <div class="my-2.5 grid gap-1 overflow-auto max-md:my-0 sm:max-h-[500px]">
                         <span
                             class="flex cursor-pointer items-center gap-2.5 px-5 py-2 text-base hover:bg-gray-100 text-black"
                             :class="{'bg-gray-100': locale.code == '{{ app()->getLocale() }}'}"
                             v-for="locale in locales"
-                            @click="change(locale)"                  
+                            @click="change(locale)"
                         >
-                           <img 
+                           <img
                             :src="locale.code === 'ar'
                                 ? '/images/arabic.jpg'
                                 : '/images/en.png'"
