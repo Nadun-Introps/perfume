@@ -20,12 +20,27 @@
                 $mainImage = $product->images->first();
                 $productUrl = route('shop.product_or_category.index', $product->url_key);
 
+                // Determine image source with fallback
+                if ($mainImage) {
+                    // Check public storage first
+                    $publicPath = 'storage/' . $mainImage->path;
+                    $storagePath = $mainImage->path;
+
+                    if (file_exists(public_path($publicPath))) {
+                        $imageSrc = asset($publicPath);
+                    } elseif (Storage::exists($storagePath)) {
+                        $imageSrc = Storage::url($storagePath);
+                    } else {
+                        $imageSrc = 'https://via.placeholder.com/200x250.png?text=No+Image';
+                    }
+                } else {
+                    $imageSrc = 'https://via.placeholder.com/200x250.png?text=No+Image';
+                }
+
                 // Determine the display price based on product type
                 if ($product->type === 'configurable') {
-                    // For configurable products, show "As low as" with min price
                     $displayPrice = 'As low as $' . number_format($product->price_index_min, 2);
                 } else {
-                    // For simple products, use the regular price
                     $displayPrice = '$' . number_format($product->price, 2);
                 }
             @endphp
@@ -34,11 +49,7 @@
                 <!-- Product Image with Link -->
                 <div class="product-image">
                     <a href="{{ $productUrl }}" class="block">
-                        @if ($mainImage)
-                            <img src="{{ asset('storage/' . $mainImage->path) }}" alt="{{ $product->name }}">
-                        @else
-                            <img src="https://via.placeholder.com/200x250.png?text=No+Image" alt="No Image">
-                        @endif
+                        <img src="{{ $imageSrc }}" alt="{{ $product->name }}">
                     </a>
                 </div>
 
