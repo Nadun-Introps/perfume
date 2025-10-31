@@ -22,14 +22,16 @@
 
                 // Determine image source with fallback
                 if ($mainImage) {
-                    // Check public storage first
+                    // Check public storage first (public/storage)
                     $publicPath = 'storage/' . $mainImage->path;
+
+                    // Check storage using the 'public' disk (storage/app/public)
                     $storagePath = $mainImage->path;
 
                     if (file_exists(public_path($publicPath))) {
                         $imageSrc = asset($publicPath);
-                    } elseif (Storage::exists($storagePath)) {
-                        $imageSrc = Storage::url($storagePath);
+                    } elseif (Storage::disk('public')->exists($storagePath)) {
+                        $imageSrc = Storage::disk('public')->url($storagePath);
                     } else {
                         $imageSrc = 'https://via.placeholder.com/200x250.png?text=No+Image';
                     }
