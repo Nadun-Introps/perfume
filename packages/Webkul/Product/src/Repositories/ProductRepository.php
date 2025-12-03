@@ -71,6 +71,7 @@ class ProductRepository extends Repository
         $product = $this->findOrFail($id);
 
         $product = $product->getTypeInstance()->update($data, $id, $attributes);
+        //print_r($product->toArray()); exit;
 
         $product->refresh();
 

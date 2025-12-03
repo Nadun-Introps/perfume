@@ -5652,7 +5652,7 @@ img.lazy {
 .mp-footer__link {
   color: black;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   transition: color 0.3s;
 }
 
@@ -5685,7 +5685,7 @@ img.lazy {
 }
 
 .mp-contact-text {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /* Footer Bottom Section */
@@ -5709,13 +5709,13 @@ img.lazy {
 
 /* Copyright */
 .mp-footer__copyright {
-  margin-bottom: 15px;
+  margin-bottom: 13px;
 }
 
 .mp-footer__copyright p {
   margin: 0;
   color: #666;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .mp-footer__copyright-link {
