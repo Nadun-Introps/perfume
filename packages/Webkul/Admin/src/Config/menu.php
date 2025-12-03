@@ -263,6 +263,7 @@ return [
     /**
      * Settings.
      */
+    /*
     [
         'key'        => 'settings',
         'name'       => 'admin::app.components.layouts.sidebar.settings',
@@ -348,16 +349,17 @@ return [
         'route'      => 'admin.settings.data_transfer.imports.index',
         'sort'       => 1,
         'icon'       => '',
-    ],
+    ],*/
 
     /**
      * Configuration.
      */
+    /*
     [
         'key'        => 'configuration',
         'name'       => 'admin::app.components.layouts.sidebar.configure',
         'route'      => 'admin.configuration.index',
         'sort'       => 9,
         'icon'       => 'icon-configuration',
-    ],
+    ],*/
 ];

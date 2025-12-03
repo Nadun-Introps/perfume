@@ -36,10 +36,11 @@
     <script type="text/x-template" id="v-topbar-template">
             <div class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16 custom-bg-black" style="height: 25px;">
                 <!-- Left side: currency + locale -->
+                <!--
                 <div class="flex items-center gap-6">
                     {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.before') !!}
 
-                    <!-- Currency Switcher -->
+
                     <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'left' : 'right' }}">
                         <x-slot:toggle>
                             <div
@@ -68,7 +69,6 @@
 
                     {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.locale_switcher.before') !!}
 
-                    <!-- Locales Switcher -->
                     <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
                         <x-slot:toggle>
                             <div
@@ -95,11 +95,14 @@
 
                     {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.locale_switcher.after') !!}
                 </div>
+                -->
+                <div class="flex items-center gap-6">
+                </div>
 
                 <!-- Right side: optional content -->
                 <div class="flex items-center">
                     <!-- Any right-aligned content can go here -->
-                     <p>perfume@example.com</p>
+                     <p class="topbar-email">perfume@example.com</p>
                 </div>
             </div>
         </script>

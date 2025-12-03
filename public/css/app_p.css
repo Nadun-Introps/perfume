@@ -23810,6 +23810,9 @@ input[type="radio"].sr-only:checked ~ div.s-wallet-table-tbody-tr a {
     --font-main: "DINNextLTArabic";
     --mm-ocd-width: calc(100% - 51px);
 }
+.topbar-email{
+    font-size: 11px;
+}
 body {
     color: #231f1e;
     color: var(--main-text-color);

@@ -23,22 +23,13 @@
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before') !!}
 
         <div class="flex items-center gap-x-6">
-            <div class="flex h-[77px] cursor-pointer items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span class="flex items-center gap-1 px-2 ">
+            <div
+                class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
+                <span>
                     <a href="{{ route('shop.search.index', ['sort' => 'created_at-desc']) }}"
                         class="inline-block px-2 ">All Products</a>
                 </span>
             </div>
-            <!-- <div
-                class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="" class="inline-block px-2 ">Gifts</a></span>
-
-            </div> -->
-            <!-- <div
-                class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="" class="inline-block px-2 ">Musk Collection</a></span>
-
-            </div> -->
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
                 <span><a href="/search?new=1&gender=22&sort=created_at-desc"
@@ -53,10 +44,6 @@
                 <span><a href="/search?new=1&gender=21&sort=created_at-desc"
                         class="inline-block px-2 ">Women's</a></span>
             </div>
-            <!-- <div
-                class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
-                <span><a href="" class="inline-block px-2 ">Niche </a></span>
-            </div> -->
             <div
                 class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue">
                 <span><a href="{{ route('shop.search.index', ['new' => 1, 'sort' => 'created_at-desc']) }}"
