@@ -71,24 +71,24 @@
                             <a href="/page/about-us" aria-label="About Us" class="mp-footer__link">About Us</a>
                         </li>
                         <li class="mp-footer__link-item">
-                            <a href=""
-                                aria-label="Privacy Policy" class="mp-footer__link">Privacy Policy and Confidentiality
-                                of Information</a>
+                            <a href="/page/privacy-policy" aria-label="Privacy Policy" class="mp-footer__link">Privacy
+                                Policy</a>
                         </li>
                         <li class="mp-footer__link-item">
-                            <a href=""
-                                aria-label="Exchange Policy" class="mp-footer__link">Exchange, Refund and Cancellation
-                                policy</a>
+                            <a href="/page/terms-conditions" aria-label="Terms and Conditions"
+                                class="mp-footer__link">Terms and
+                                Conditions</a>
                         </li>
                         <li class="mp-footer__link-item">
-                            <a href=""
-                                aria-label="Usage Agreement" class="mp-footer__link">Usage agreement</a>
+                            <a href="/page/faq" aria-label="FAQ" class="mp-footer__link">FAQ</a>
                         </li>
+                        <!--
                         <li class="mp-footer__link-item">
-                            <a href=""
-                                aria-label="Perfume Info" class="mp-footer__link">What are inspired perfumes and niche
+                            <a href="" aria-label="Perfume Info" class="mp-footer__link">What are inspired
+                                perfumes and niche
                                 perfumes?</a>
                         </li>
+                        -->
                     </ul>
                 </div>
 
@@ -99,11 +99,15 @@
                         <a href="https://uae.matchperfumes.com/en/whatsapp/send" class="mp-contact-link"
                             aria-label="WhatsApp">
                             <i class="fa-brands fa-whatsapp mp-contact-icon"></i>
-                            <span class="mp-contact-text">+966125785690</span>
+                            <span class="mp-contact-text">+94 715986908</span>
                         </a>
-                        <a href="tel:920032057" class="mp-contact-link" aria-label="Phone">
+                        <a href="tel:0715986908" class="mp-contact-link" aria-label="Phone">
                             <i class="fa-solid fa-phone mp-contact-icon"></i>
-                            <span class="mp-contact-text">920032057</span>
+                            <span class="mp-contact-text">0715986908</span>
+                        </a>
+                        <a href="" class="mp-contact-link" aria-label="email">
+                            <i class="fa-solid fa-envelope mp-contact-icon"></i>
+                            <span class="mp-contact-text">perfume@example.com</span>
                         </a>
                     </div>
                 </div>
